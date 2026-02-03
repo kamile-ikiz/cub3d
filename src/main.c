@@ -41,7 +41,6 @@ void get_map(t_game_data *data, char *filename)
     close(fd);
 }
 
-//get_map fonksiyonu düzenlenicek
 
 void map_operations(t_game_data *data)
 {

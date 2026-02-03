@@ -183,6 +183,8 @@ void parse_elements(t_game_data *data, char *line)
         get_color(data, tmp_line, 'F');
     else if(ft_strncmp(tmp_line, "C ", 2) == 0)
         get_color(data, tmp_line, 'C');
+    else if (*tmp_line && *tmp_line != '\n')
+        print_error_exit("Invalid configuration line in file", data);
 }
 
 static char *ft_strjoin_nofree(char *s1, const char *s2)
@@ -214,27 +216,42 @@ void parsing_objects(t_game_data *data, int fd)
     char *line;
     char *map_codes;
     char *temp_map;
+    int map_started;
+    char *tmp_line;
 
     line = get_next_line(fd);
     map_codes = ft_strdup("");
+    map_started = 0;
     while (line != NULL)
     {
-        if(!all_elements_filled(data))
-            parse_elements(data, line);
+        tmp_line = jump_spaces(line);
+        if (!all_elements_filled(data))
+        {
+            if (map_started)
+                print_error_exit("Configuration data was found within the map.", data);
+            if (*tmp_line && *tmp_line != '\n')
+                parse_elements(data, line);
+        }
         else
         {
-            temp_map = map_codes;
-            map_codes = ft_strjoin_nofree(map_codes, line);
-            free(temp_map);
+            if (*tmp_line && *tmp_line != '\n')
+            {
+                map_started = 1;
+                temp_map = map_codes;
+                map_codes = ft_strjoin_nofree(map_codes, line);
+                free(temp_map);
+            }
         }
         free(line);
         line = get_next_line(fd);
     }
+    if (!map_started)
+        print_error_exit("Map data was not found in the file", data);
     if (map_codes && *map_codes)
         data->map = ft_split(map_codes, '\n');
     free(map_codes);
-    if (data->map && data->map[0])
-        printf("%s", data->map[0]);
+    if (!data->map || !data->map[0])
+        print_error_exit("Valid map data must be present at the end of the file", data);
 }
 
 
