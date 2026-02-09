@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: beergin <beergin@student.42.tr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/04 16:50:43 by beergin           #+#    #+#             */
+/*   Updated: 2026/02/09 00:50:20 by beergin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 static unsigned int	ft_word_counter(const char *s, char control)
@@ -41,6 +53,19 @@ static char	**free_all(char **result)
 	}
 	free(result);
 	return (NULL);
+}
+
+void	free_split(char **result)
+{
+	int	i;
+
+	i = 0;
+	while (result[i])
+	{
+		free(result[i]);
+		i++;
+	}
+	free(result);
 }
 
 char	**ft_split(char const *s, char c)
