@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beergin <beergin@student.42.tr>            +#+  +:+       +#+        */
+/*   By: beergin <beergin@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 16:50:49 by beergin           #+#    #+#             */
-/*   Updated: 2026/02/09 01:46:10 by beergin          ###   ########.fr       */
+/*   Updated: 2026/02/13 18:33:29 by beergin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@ void	start_data(t_game_data *data)
 	data->west_p = NULL;
 	data->east_p = NULL;
 	data->map = NULL;
+	data->map_dir = NULL;
+	data->mlx = NULL;
+	data->win = NULL;
+	data->img = NULL;
 	data->height = 0;
 	data->width = 0;
 	data->player_x = 0;

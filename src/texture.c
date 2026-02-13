@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beergin <beergin@student.42.tr>            +#+  +:+       +#+        */
+/*   By: beergin <beergin@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 01:05:00 by beergin           #+#    #+#             */
-/*   Updated: 2026/02/10 00:10:47 by beergin          ###   ########.fr       */
+/*   Updated: 2026/02/13 19:04:43 by beergin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include <unistd.h>
 
 void	space_to_null(char *str)
 {
@@ -56,10 +57,17 @@ static void	to_compare(t_game_data *data, char *dir, char *path)
 void	get_texture_path(t_game_data *data, char *line, char *dir)
 {
 	char	*path;
+	int		fd;
 
 	path = ft_strdup(jump_spaces(line + 2));
-	space_to_null(path);
-	if (path[0] == '\n' || path[0] == '\t')
+	trim_path(path);
+	if (path[0] == '\0' || path[0] == '\n' || path[0] == '\t')
+	{
+		free(path);
 		print_error_exit("Texture path is empty", data);
+	}
+	fd = -1;
+	path = try_relative_path(data, path, &fd);
+	verify_file_exists(data, path, fd);
 	to_compare(data, dir, path);
 }

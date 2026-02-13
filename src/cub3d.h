@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beergin <beergin@student.42.tr>            +#+  +:+       +#+        */
+/*   By: beergin <beergin@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 16:51:52 by beergin           #+#    #+#             */
-/*   Updated: 2026/02/10 00:51:02 by beergin          ###   ########.fr       */
+/*   Updated: 2026/02/13 19:04:43 by beergin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,47 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include "../extras/get_next_line/get_next_line.h"
+# include "../extras/minilibx-linux/mlx.h"
+
+typedef struct s_game_img
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	int		width;
+	int		height;
+}	t_game_img;
 
 typedef struct s_game_data
 {
-	char	*north_p;
-	char	*south_p;
-	char	*west_p;
-	char	*east_p;
-	int		floor_rgb[3];
-	int		ceiling_rgb[3];
-	int		height;
-	int		width;
-	char	**map;
-	int		player_x;
-	int		player_y;
-	char	player_dir;
+	char		*north_p;
+	char		*south_p;
+	char		*west_p;
+	char		*east_p;
+	int			floor_rgb[3];
+	int			ceiling_rgb[3];
+	int			height;
+	int			width;
+	char		**map;
+	char		*map_dir;
+	int			player_x;
+	int			player_y;
+	char		player_dir;
+	void		*mlx;
+	void		*win;
+	t_game_img	*img;
+	t_game_img	north_img;
+	t_game_img	south_img;
+	t_game_img	west_img;
+	t_game_img	east_img;
+	int			pos_x;
+	int			pos_y;
+	int			plane_x;
+	int			plane_y;
+	int			dir_x;
+	int			dir_y;
 }	t_game_data;
 
 void	print_error_exit(char *message, t_game_data *data);
@@ -57,4 +83,10 @@ void	check_data_simple(t_game_data *data);
 void	space_to_null(char *str);
 void	start_data(t_game_data *data);
 void	is_invalid_char_rgb(t_game_data *data, char *str);
+void	player_direction(t_game_data *data);
+void	start_mlx(t_game_data *data);
+void	trim_path(char *str);
+char	*join_paths(const char *dir, const char *path);
+char	*try_relative_path(t_game_data *data, char *path, int *fd);
+void	verify_file_exists(t_game_data *data, char *path, int fd);
 #endif
