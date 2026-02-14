@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_memory.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beergin <beergin@student.42istanbul.com    +#+  +:+       +#+        */
+/*   By: kikiz <kikiz@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 01:05:00 by beergin           #+#    #+#             */
-/*   Updated: 2026/02/13 18:39:51 by beergin          ###   ########.fr       */
+/*   Updated: 2026/02/14 15:41:12 by kikiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,17 @@ void	all_free(t_game_data *data)
 			free(data->east_p);
 		if (data->map_dir)
 			free(data->map_dir);
+		if (data->mlx)
+		{
+			if (data->north_img.img)
+				mlx_destroy_image(data->mlx, data->north_img.img);
+			if (data->south_img.img)
+				mlx_destroy_image(data->mlx, data->south_img.img);
+			if (data->west_img.img)
+				mlx_destroy_image(data->mlx, data->west_img.img);
+			if (data->east_img.img)
+				mlx_destroy_image(data->mlx, data->east_img.img);
+		}
 		if (data->win)
 			mlx_destroy_window(data->mlx, data->win);
 		if (data->img)

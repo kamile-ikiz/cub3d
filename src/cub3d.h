@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beergin <beergin@student.42istanbul.com    +#+  +:+       +#+        */
+/*   By: kikiz <kikiz@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 16:51:52 by beergin           #+#    #+#             */
-/*   Updated: 2026/02/13 19:04:43 by beergin          ###   ########.fr       */
+/*   Updated: 2026/02/14 19:59:11 by kikiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,22 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <math.h>
 # include "../extras/get_next_line/get_next_line.h"
 # include "../extras/minilibx-linux/mlx.h"
+
+# define SCREEN_WIDTH 1080
+# define SCREEN_HEIGHT 1020
+# define MOVE_SPEED 0.05
+# define ROT_SPEED 0.05
+
+# define ESC 65307
+# define W_KEY 119
+# define A_KEY 97
+# define S_KEY 115
+# define D_KEY 100
+# define LEFT_ARROW 65361
+# define RIGHT_ARROW 65363
 
 typedef struct s_game_img
 {
@@ -29,6 +43,32 @@ typedef struct s_game_img
 	int		width;
 	int		height;
 }	t_game_img;
+
+typedef struct s_draw
+{
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+	int		color;
+}	t_draw;
+
+typedef struct s_ray
+{
+	double	camera_x;
+	double	raydir_x;
+	double	raydir_y;
+	int		map_x;
+	int		map_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	perp_wall_dist;
+	int		step_x;
+	int		step_y;
+	int		hit;
+	int		side;
+}	t_ray;
 
 typedef struct s_game_data
 {
@@ -52,12 +92,12 @@ typedef struct s_game_data
 	t_game_img	south_img;
 	t_game_img	west_img;
 	t_game_img	east_img;
-	int			pos_x;
-	int			pos_y;
-	int			plane_x;
-	int			plane_y;
-	int			dir_x;
-	int			dir_y;
+	double			pos_x;
+	double			pos_y;
+	double			plane_x;
+	double			plane_y;
+	double			dir_x;
+	double			dir_y;
 }	t_game_data;
 
 void	print_error_exit(char *message, t_game_data *data);
@@ -89,4 +129,15 @@ void	trim_path(char *str);
 char	*join_paths(const char *dir, const char *path);
 char	*try_relative_path(t_game_data *data, char *path, int *fd);
 void	verify_file_exists(t_game_data *data, char *path, int fd);
+//raycasting and others
+void	cast_rays(t_game_data *data);
+void	draw_vertical_line(t_game_data *data, t_ray *ray, int x);
+int		render_frame(t_game_data *data);
+int		key_press(int keycode, t_game_data *data);
+int		close_window(t_game_data *data);
+void	rotate_left(t_game_data *data);
+void	rotate_right(t_game_data *data);
+void	load_textures(t_game_data *data);
+int		rgb_to_int(int r, int g, int b);
+
 #endif
