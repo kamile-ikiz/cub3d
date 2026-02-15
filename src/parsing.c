@@ -6,7 +6,7 @@
 /*   By: kikiz <kikiz@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 17:00:00 by beergin           #+#    #+#             */
-/*   Updated: 2026/02/14 20:39:26 by kikiz            ###   ########.fr       */
+/*   Updated: 2026/02/15 20:40:10 by kikiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,14 @@ static char	*ft_strjoin_nofree(char *s1, const char *s2)
 	return (str);
 }
 
-void check_line(char *line, t_game_data *data)
+void	check_line(char *line, t_game_data *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(line[i])
+	while (line[i])
 	{
-		if(line[i] == ' ' || line[i] == '\t' || line[i] == '\r')
+		if (line[i] == ' ' || line[i] == '\t' || line[i] == '\r')
 			print_error_exit("No permission for any space in a line!", data);
 		i++;
 	}

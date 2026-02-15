@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beergin <beergin@student.42.tr>            +#+  +:+       +#+        */
+/*   By: kikiz <kikiz@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 01:05:00 by beergin           #+#    #+#             */
-/*   Updated: 2026/02/09 01:21:34 by beergin          ###   ########.fr       */
+/*   Updated: 2026/02/15 19:51:19 by kikiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static void	set_player(t_game_data *data, int x, int y, int *count)
 	data->player_x = x;
 	data->player_y = y;
 	(*count)++;
-	printf("Player found at (%d, %d) facing %c\n", y, x, data->player_dir);
 }
 
 static void	validate_player_count(t_game_data *data, int count)

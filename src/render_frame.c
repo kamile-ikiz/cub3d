@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render.c                                           :+:      :+:    :+:   */
+/*   render_frame.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kikiz <kikiz@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 14:06:27 by kikiz             #+#    #+#             */
-/*   Updated: 2026/02/14 14:07:03 by kikiz            ###   ########.fr       */
+/*   Updated: 2026/02/15 21:39:40 by kikiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	my_mlx_pixel_put(t_game_img *img, int x, int y, int color)
+void	my_mlx_pixel_put(t_game_img *img, int x, int y, int color)
 {
 	char	*dst;
 
@@ -22,7 +22,7 @@ static void	my_mlx_pixel_put(t_game_img *img, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-static int	get_texture_color(t_game_img *texture, int tex_x, int tex_y)
+int	get_texture_color(t_game_img *texture, int tex_x, int tex_y)
 {
 	char	*dst;
 
@@ -34,7 +34,7 @@ static int	get_texture_color(t_game_img *texture, int tex_x, int tex_y)
 	return (*(unsigned int *)dst);
 }
 
-static t_game_img	*select_texture(t_game_data *data, t_ray *ray)
+t_game_img	*select_texture(t_game_data *data, t_ray *ray)
 {
 	if (ray->side == 0)
 	{
@@ -52,7 +52,7 @@ static t_game_img	*select_texture(t_game_data *data, t_ray *ray)
 	}
 }
 
-static void	calculate_texture_x(t_game_data *data, t_ray *ray,
+void	calculate_texture_x(t_game_data *data, t_ray *ray,
 		t_game_img *texture, int *tex_x)
 {
 	double	wall_x;
@@ -67,45 +67,6 @@ static void	calculate_texture_x(t_game_data *data, t_ray *ray,
 		*tex_x = texture->width - *tex_x - 1;
 	if (ray->side == 1 && ray->raydir_y < 0)
 		*tex_x = texture->width - *tex_x - 1;
-}
-
-void	draw_vertical_line(t_game_data *data, t_ray *ray, int x)
-{
-	t_draw		draw;
-	t_game_img	*texture;
-	int			tex_x;
-	int			tex_y;
-	int			y;
-
-	draw.line_height = (int)(SCREEN_HEIGHT / ray->perp_wall_dist);
-	draw.draw_start = -draw.line_height / 2 + SCREEN_HEIGHT / 2;
-	if (draw.draw_start < 0)
-		draw.draw_start = 0;
-	draw.draw_end = draw.line_height / 2 + SCREEN_HEIGHT / 2;
-	if (draw.draw_end >= SCREEN_HEIGHT)
-		draw.draw_end = SCREEN_HEIGHT - 1;
-	texture = select_texture(data, ray);
-	calculate_texture_x(data, ray, texture, &tex_x);
-	y = 0;
-	while (y < SCREEN_HEIGHT)
-	{
-		if (y < draw.draw_start)
-			my_mlx_pixel_put(data->img, x, y,
-				rgb_to_int(data->ceiling_rgb[0], data->ceiling_rgb[1],
-					data->ceiling_rgb[2]));
-		else if (y >= draw.draw_start && y <= draw.draw_end)
-		{
-			tex_y = (int)((y - draw.draw_start) * texture->height
-					/ draw.line_height);
-			draw.color = get_texture_color(texture, tex_x, tex_y);
-			my_mlx_pixel_put(data->img, x, y, draw.color);
-		}
-		else
-			my_mlx_pixel_put(data->img, x, y,
-				rgb_to_int(data->floor_rgb[0], data->floor_rgb[1],
-					data->floor_rgb[2]));
-		y++;
-	}
 }
 
 int	render_frame(t_game_data *data)

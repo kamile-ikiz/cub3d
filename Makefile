@@ -25,7 +25,10 @@ SRCS = 	src/main.c \
 		src/controls.c \
 		src/load_textures.c \
 		src/raycasting.c \
-		src/render.c \
+		src/render_frame.c \
+		src/map.c \
+		src/controls_move.c \
+		src/draw_calc.c
 		
 MINILIBNAME = ./extras/minilibx-linux/libmlx.a
 OBJ = ${SRCS:.c=.o}

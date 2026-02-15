@@ -6,68 +6,15 @@
 /*   By: kikiz <kikiz@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 14:08:06 by kikiz             #+#    #+#             */
-/*   Updated: 2026/02/14 19:44:45 by kikiz            ###   ########.fr       */
+/*   Updated: 2026/02/15 21:39:56 by kikiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	move_forward(t_game_data *data)
+static void	rotate_left(t_game_data *data)
 {
-	double	new_x;
-	double	new_y;
-
-	new_x = data->pos_x + data->dir_x * MOVE_SPEED;
-	new_y = data->pos_y + data->dir_y * MOVE_SPEED;
-	if (data->map[(int)data->pos_y][(int)new_x] != '1')
-		data->pos_x = new_x;
-	if (data->map[(int)new_y][(int)data->pos_x] != '1')
-		data->pos_y = new_y;
-}
-
-static void	move_backward(t_game_data *data)
-{
-	double	new_x;
-	double	new_y;
-    
-
-	new_x = data->pos_x - data->dir_x * MOVE_SPEED;
-	new_y = data->pos_y - data->dir_y * MOVE_SPEED;
-	if (data->map[(int)data->pos_y][(int)new_x] != '1')
-		data->pos_x = new_x;
-	if (data->map[(int)new_y][(int)data->pos_x] != '1')
-		data->pos_y = new_y;
-}
-
-static void	move_left(t_game_data *data)
-{
-	double	new_x;
-	double	new_y;
-
-	new_x = data->pos_x - data->plane_x * MOVE_SPEED;
-	new_y = data->pos_y - data->plane_y * MOVE_SPEED;
-	if (data->map[(int)data->pos_y][(int)new_x] != '1')
-		data->pos_x = new_x;
-	if (data->map[(int)new_y][(int)data->pos_x] != '1')
-		data->pos_y = new_y;
-}
-
-static void	move_right(t_game_data *data)
-{
-	double	new_x;
-	double	new_y;
-	new_x = data->pos_x + data->plane_x * MOVE_SPEED;
-	new_y = data->pos_y + data->plane_y * MOVE_SPEED;
-
-	if (data->map[(int)data->pos_y][(int)new_x] != '1')
-		data->pos_x = new_x;
-	if (data->map[(int)new_y][(int)data->pos_x] != '1')
-		data->pos_y = new_y;
-}
-
-void	rotate_left(t_game_data *data)
-{
-    	double	old_dir_x;
+	double	old_dir_x;
 	double	old_plane_x;
 
 	old_dir_x = data->dir_x;
@@ -80,12 +27,11 @@ void	rotate_left(t_game_data *data)
 		- data->plane_y * sin(-ROT_SPEED);
 	data->plane_y = old_plane_x * sin(-ROT_SPEED)
 		+ data->plane_y * cos(-ROT_SPEED);
-	
 }
 
-void	rotate_right(t_game_data *data)
+static void	rotate_right(t_game_data *data)
 {
-double	old_dir_x;
+	double	old_dir_x;
 	double	old_plane_x;
 
 	old_dir_x = data->dir_x;
@@ -129,4 +75,3 @@ int	close_window(t_game_data *data)
 	exit(0);
 	return (0);
 }
-
