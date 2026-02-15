@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checks_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beergin <beergin@student.42istanbul.com    +#+  +:+       +#+        */
+/*   By: beergin <beergin@student.42.tr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 01:05:00 by beergin           #+#    #+#             */
-/*   Updated: 2026/02/13 20:37:56 by beergin          ###   ########.fr       */
+/*   Updated: 2026/02/16 00:15:58 by beergin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,12 @@ void	border_check_fill(t_game_data *data)
 		x++;
 	}
 	free_temp_map(temp_map, data->height);
+}
+
+int	all_elements_filled(t_game_data *data)
+{
+	if (data->north_p && data->south_p && data->west_p && data->east_p
+		&& data->floor_rgb[0] != -1 && data->ceiling_rgb[0] != -1)
+		return (1);
+	return (0);
 }

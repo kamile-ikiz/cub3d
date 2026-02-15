@@ -3,22 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kikiz <kikiz@student.42istanbul.com.tr>    +#+  +:+       +#+        */
+/*   By: beergin <beergin@student.42.tr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 17:00:00 by beergin           #+#    #+#             */
-/*   Updated: 2026/02/15 20:40:10 by kikiz            ###   ########.fr       */
+/*   Updated: 2026/02/16 00:15:47 by beergin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-static int	all_elements_filled(t_game_data *data)
-{
-	if (data->north_p && data->south_p && data->west_p && data->east_p
-		&& data->floor_rgb[0] != -1 && data->ceiling_rgb[0] != -1)
-		return (1);
-	return (0);
-}
 
 static void	parse_elements(t_game_data *data, char *line)
 {

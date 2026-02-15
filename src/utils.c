@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beergin <beergin@student.42istanbul.com    +#+  +:+       +#+        */
+/*   By: beergin <beergin@student.42.tr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 16:50:49 by beergin           #+#    #+#             */
-/*   Updated: 2026/02/13 18:33:29 by beergin          ###   ########.fr       */
+/*   Updated: 2026/02/16 00:23:19 by beergin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,11 @@ void	start_data(t_game_data *data)
 	data->ceiling_rgb[0] = -1;
 	data->ceiling_rgb[1] = -1;
 	data->ceiling_rgb[2] = -1;
+}
+
+void	print_error_exit(char *message, t_game_data *data)
+{
+	printf("Error\n%s\n", message);
+	all_free(data);
+	exit(1);
 }

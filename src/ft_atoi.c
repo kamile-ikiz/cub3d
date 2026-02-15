@@ -6,7 +6,7 @@
 /*   By: beergin <beergin@student.42.tr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 16:50:39 by beergin           #+#    #+#             */
-/*   Updated: 2026/02/04 16:58:01 by beergin          ###   ########.fr       */
+/*   Updated: 2026/02/16 00:20:20 by beergin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,32 @@ static int	ft_white_space(int i, const char *str)
 	return (i);
 }
 
+static long long	process_digits(const char *str, int *i, int sign)
+{
+	long long	result;
+	int			re;
+
+	result = 0;
+	while (str[*i] >= 48 && str[*i] <= 57)
+	{
+		re = ft_check(result, str, sign, *i);
+		if (re == -1 || re == 0)
+			return ((long long)re);
+		result = ((result * 10) + (str[(*i)++] - 48));
+		if (result > 2147483647)
+			return (-1);
+	}
+	return (result);
+}
+
 int	ft_atoi(const char *str)
 {
 	int			i;
 	long long	result;
 	int			sign;
-	int			re;
 
 	i = 0;
-	result = 0;
 	sign = 1;
-	re = 0;
 	i += ft_white_space(i, str);
 	if (str[i] == '+')
 		i++;
@@ -51,12 +66,8 @@ int	ft_atoi(const char *str)
 		sign = -1;
 		i++;
 	}
-	while (str[i] >= 48 && str[i] <= 57)
-	{
-		re = ft_check(result, str, sign, i);
-		if (re == -1 || re == 0)
-			return (re);
-		result = ((result * 10) + (str[i++] - 48));
-	}
+	result = process_digits(str, &i, sign);
+	if (result == -1 || result == 0)
+		return ((int)result);
 	return ((int)(result * sign));
 }

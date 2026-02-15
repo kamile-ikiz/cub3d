@@ -3,8 +3,8 @@ SO ../textures/01.xpm
 WE ../textures/01.xpm
 EA ../textures/01.xpm
 
-F 1,220,0
-C 225,30,0
+F 255,220,0 435345
+C 255,1,0
 
 
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kikiz <kikiz@student.42istanbul.com.tr>    +#+  +:+       +#+        */
+/*   By: beergin <beergin@student.42.tr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 16:51:52 by beergin           #+#    #+#             */
-/*   Updated: 2026/02/15 21:42:48 by kikiz            ###   ########.fr       */
+/*   Updated: 2026/02/16 00:23:19 by beergin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include "../extras/get_next_line/get_next_line.h"
 # include "../extras/minilibx-linux/mlx.h"
 
-# define SCREEN_WIDTH 1080
-# define SCREEN_HEIGHT 1020
+# define SCREEN_WIDTH 640
+# define SCREEN_HEIGHT 480
 # define MOVE_SPEED 0.05
 # define ROT_SPEED 0.05
 
@@ -123,6 +123,9 @@ void		check_data_simple(t_game_data *data);
 void		space_to_null(char *str);
 void		start_data(t_game_data *data);
 void		is_invalid_char_rgb(t_game_data *data, char *str);
+void		count_commas(t_game_data *data, char *str);
+void		convert_rgb_values(t_game_data *data, char **rgb_split, int rgb[3]);
+void		parse_rgb_line(t_game_data *data, char *line, int rgb[3]);
 void		player_direction(t_game_data *data);
 void		start_mlx(t_game_data *data);
 void		trim_path(char *str);
@@ -149,5 +152,6 @@ int			get_texture_color(t_game_img *texture, int tex_x, int tex_y);
 t_game_img	*select_texture(t_game_data *data, t_ray *ray);
 void		calculate_texture_x(t_game_data *data, t_ray *ray,
 				t_game_img *texture, int *tex_x);
+int			all_elements_filled(t_game_data *data);
 
 #endif
