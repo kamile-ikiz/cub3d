@@ -6,7 +6,7 @@
 /*   By: kikiz <kikiz@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 16:50:46 by beergin           #+#    #+#             */
-/*   Updated: 2026/02/15 18:42:51 by kikiz            ###   ########.fr       */
+/*   Updated: 2026/02/16 17:07:06 by kikiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	main(int ac, char **av)
 	map_operations(data);
 	start_mlx(data);
 	player_direction(data);
-	render_frame(data);
 	mlx_hook(data->win, 2, 1L << 0, key_press, data);
 	mlx_hook(data->win, 17, 0, close_window, data);
 	mlx_loop_hook(data->mlx, game_loop, data);

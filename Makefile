@@ -39,7 +39,15 @@ ${NAME}: ${OBJ}
 		make -C ${MINIDIR}
 		ar rcs ${NAME} ${OBJ}
 		${CC} ${CFLAGS} ${SRCS} ${MINILIBNAME} -o ${NAME} -lX11 -lXext -lm
-		
+
+
+$(MLX):
+	@mkdir -p $(MLX_DIR)
+	@rsync -a minilibx-linux/ $(MLX_DIR) >/dev/null 2>&1 || true
+	@$(RM) minilibx-linux
+	@$(RM) minilibx-linux.tgz
+	@make -s -C $(MLX_DIR) >/dev/null 2>&1
+
 clean:
 		make clean -C ${MINIDIR}
 		${RM} ${OBJ}

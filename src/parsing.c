@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beergin <beergin@student.42.tr>            +#+  +:+       +#+        */
+/*   By: kikiz <kikiz@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 17:00:00 by beergin           #+#    #+#             */
-/*   Updated: 2026/02/16 00:15:47 by beergin          ###   ########.fr       */
+/*   Updated: 2026/02/16 16:43:16 by kikiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,18 @@ static char	*ft_strjoin_nofree(char *s1, const char *s2)
 void	check_line(char *line, t_game_data *data)
 {
 	int	i;
+	int flag;
 
 	i = 0;
-	while (line[i])
+	flag = 0;
+	while (line[i] && line[i] != '\n')
 	{
+		while(!flag && (line[i] == ' ' || line[i] == '\t' || line[i] == '\r'))
+			i++;
+		if (flag && (line[i] != ' ' && line[i] != '\t' && line[i] != '\r'))
+			print_error_exit("Invalid line!", data);
 		if (line[i] == ' ' || line[i] == '\t' || line[i] == '\r')
-			print_error_exit("No permission for any space in a line!", data);
+			flag = 1;
 		i++;
 	}
 }
