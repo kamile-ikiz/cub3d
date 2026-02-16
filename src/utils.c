@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beergin <beergin@student.42.tr>            +#+  +:+       +#+        */
+/*   By: kikiz <kikiz@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 16:50:49 by beergin           #+#    #+#             */
-/*   Updated: 2026/02/16 00:23:19 by beergin          ###   ########.fr       */
+/*   Updated: 2026/02/16 18:42:40 by kikiz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static void	start_data_img(t_game_data *data)
+{
+	data->north_img.img = NULL;
+	data->north_img.addr = NULL;
+	data->south_img.img = NULL;
+	data->south_img.addr = NULL;
+	data->west_img.img = NULL;
+	data->west_img.addr = NULL;
+	data->east_img.img = NULL;
+	data->east_img.addr = NULL;
+}
 
 void	start_data(t_game_data *data)
 {
@@ -34,6 +46,7 @@ void	start_data(t_game_data *data)
 	data->ceiling_rgb[0] = -1;
 	data->ceiling_rgb[1] = -1;
 	data->ceiling_rgb[2] = -1;
+	start_data_img(data);
 }
 
 void	print_error_exit(char *message, t_game_data *data)
