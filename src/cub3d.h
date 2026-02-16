@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kikiz <kikiz@student.42istanbul.com.tr>    +#+  +:+       +#+        */
+/*   By: beergin <beergin@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 16:51:52 by beergin           #+#    #+#             */
-/*   Updated: 2026/02/16 15:19:23 by kikiz            ###   ########.fr       */
+/*   Updated: 2026/02/16 18:19:55 by beergin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,9 +122,6 @@ void		all_free(t_game_data *data);
 void		check_data_simple(t_game_data *data);
 void		space_to_null(char *str);
 void		start_data(t_game_data *data);
-void		is_invalid_char_rgb(t_game_data *data, char *str);
-void		count_commas(t_game_data *data, char *str);
-void		convert_rgb_values(t_game_data *data, char **rgb_split, int rgb[3]);
 void		parse_rgb_line(t_game_data *data, char *line, int rgb[3]);
 void		player_direction(t_game_data *data);
 void		start_mlx(t_game_data *data);

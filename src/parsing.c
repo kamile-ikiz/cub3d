@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kikiz <kikiz@student.42istanbul.com.tr>    +#+  +:+       +#+        */
+/*   By: beergin <beergin@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 17:00:00 by beergin           #+#    #+#             */
-/*   Updated: 2026/02/16 16:43:16 by kikiz            ###   ########.fr       */
+/*   Updated: 2026/02/16 18:22:48 by beergin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,14 @@ static char	*ft_strjoin_nofree(char *s1, const char *s2)
 
 void	check_line(char *line, t_game_data *data)
 {
-	int	i;
-	int flag;
+	int		i;
+	int		flag;
 
 	i = 0;
 	flag = 0;
 	while (line[i] && line[i] != '\n')
 	{
-		while(!flag && (line[i] == ' ' || line[i] == '\t' || line[i] == '\r'))
+		while (!flag && (line[i] == ' ' || line[i] == '\t' || line[i] == '\r'))
 			i++;
 		if (flag && (line[i] != ' ' && line[i] != '\t' && line[i] != '\r'))
 			print_error_exit("Invalid line!", data);

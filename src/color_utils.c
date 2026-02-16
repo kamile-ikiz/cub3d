@@ -3,52 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   color_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beergin <beergin@student.42.tr>            +#+  +:+       +#+        */
+/*   By: beergin <beergin@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 00:34:14 by beergin           #+#    #+#             */
-/*   Updated: 2026/02/16 00:41:22 by beergin          ###   ########.fr       */
+/*   Updated: 2026/02/16 18:19:52 by beergin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	is_invalid_char_rgb(t_game_data *data, char *str)
+static void	rgb_error(t_game_data *data, char *str, char *msg)
 {
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] != ',' && (str[i] < '0' || str[i] > '9') && str[i] != '\n')
-		{
-			free(str);
-			print_error_exit("Invalid character in RGB format", data);
-		}
-		i++;
-	}
+	free(str);
+	print_error_exit(msg, data);
 }
 
-void	count_commas(t_game_data *data, char *str)
-{
-	int	count;
-	int	i;
-
-	count = 0;
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == ',')
-			count++;
-		i++;
-	}
-	if (count != 2)
-	{
-		free(str);
-		print_error_exit("Invalid RGB format (Need R,G,B)", data);
-	}
-}
-
-void	convert_rgb_values(t_game_data *data, char **rgb_split, int rgb[3])
+static void	convert_rgb_values(t_game_data *data, char **rgb_split, int rgb[3])
 {
 	int	i;
 
@@ -65,19 +35,49 @@ void	convert_rgb_values(t_game_data *data, char **rgb_split, int rgb[3])
 	}
 }
 
-static void	check_extra_chars(t_game_data *data, char *tmp_line)
+static void	remove_spaces(char *str)
 {
 	int	i;
+	int	j;
 
 	i = 0;
-	while (tmp_line[i] && tmp_line[i] != ' ' && tmp_line[i] != '\t'
-		&& tmp_line[i] != '\n')
-		i++;
-	if (tmp_line[i] == ' ' || tmp_line[i] == '\t')
+	j = 0;
+	while (str[i])
 	{
-		free(tmp_line);
-		print_error_exit("Invalid RGB format (extra characters)", data);
+		if (str[i] != ' ')
+			str[j++] = str[i];
+		i++;
 	}
+	str[j] = '\0';
+}
+
+static void	validate_rgb_spacing(t_game_data *data, char *str)
+{
+	int	i;
+	int	comma_count;
+
+	i = 0;
+	comma_count = 0;
+	if (str[i] < '0' || str[i] > '9')
+		rgb_error(data, str, "Invalid RGB format (Need R,G,B)");
+	while (str[i] >= '0' && str[i] <= '9')
+		i++;
+	while (comma_count < 2)
+	{
+		if (str[i++] != ',')
+			rgb_error(data, str, "Invalid RGB format (Need R,G,B)");
+		if (str[i] == ' ')
+			i++;
+		if (str[i] < '0' || str[i] > '9')
+			rgb_error(data, str, "Invalid RGB format (comma spacing)");
+		while (str[i] >= '0' && str[i] <= '9')
+			i++;
+		comma_count++;
+	}
+	while (str[i] == ' ')
+		i++;
+	if (str[i] && str[i] != '\n')
+		rgb_error(data, str, "Invalid RGB format (extra characters)");
 }
 
 void	parse_rgb_line(t_game_data *data, char *line, int rgb[3])
@@ -87,10 +87,8 @@ void	parse_rgb_line(t_game_data *data, char *line, int rgb[3])
 	int		i;
 
 	tmp_line = ft_strdup(jump_spaces(line + 1));
-	check_extra_chars(data, tmp_line);
-	space_to_null(tmp_line);
-	count_commas(data, tmp_line);
-	is_invalid_char_rgb(data, tmp_line);
+	validate_rgb_spacing(data, tmp_line);
+	remove_spaces(tmp_line);
 	rgb_split = ft_split(tmp_line, ',');
 	free(tmp_line);
 	i = 0;

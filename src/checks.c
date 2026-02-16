@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checks.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kikiz <kikiz@student.42istanbul.com.tr>    +#+  +:+       +#+        */
+/*   By: beergin <beergin@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 16:50:35 by beergin           #+#    #+#             */
-/*   Updated: 2026/02/16 17:25:04 by kikiz            ###   ########.fr       */
+/*   Updated: 2026/02/16 18:16:39 by beergin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	border_check_fill(t_game_data *data);
 
-void check_filename(t_game_data *data, char *filename, int len)
+void	check_filename(t_game_data *data, char *filename, int len)
 {
 	int	i;
 
@@ -24,11 +24,11 @@ void check_filename(t_game_data *data, char *filename, int len)
 	if (i < 5 || filename[i - 1] != 'b' || filename[i - 2] != 'u'
 		|| filename[i - 3] != 'c' || filename[i - 4] != '.')
 		print_error_exit("Invalid file extension", data);
-	while(filename[len] != '/' && len > 0)
+	while (filename[len] != '/' && len > 0)
 		len--;
-	if(filename[len] == '/' && filename[len + 1] == '.' && filename[len + 2] == 'c')
+	if (filename[len] == '/' && filename[len + 1] == '.'
+		&& filename[len + 2] == 'c')
 		print_error_exit("Hidden file not supported", data);
-			
 }
 
 void	check_extension(char *filename, char *extension, t_game_data *data)
@@ -98,10 +98,4 @@ void	border_check(t_game_data *data)
 	}
 	get_map_width(data);
 	border_check_fill(data);
-}
-
-void	check_data_simple(t_game_data *data)
-{
-	if (!data->map || !data->map[0])
-		print_error_exit("Valid map data must be present", data);
 }

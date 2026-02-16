@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kikiz <kikiz@student.42istanbul.com.tr>    +#+  +:+       +#+        */
+/*   By: beergin <beergin@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 16:50:46 by beergin           #+#    #+#             */
-/*   Updated: 2026/02/16 17:07:06 by kikiz            ###   ########.fr       */
+/*   Updated: 2026/02/16 18:17:25 by beergin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	check_data_simple(t_game_data *data)
+{
+	if (!data->map || !data->map[0])
+		print_error_exit("Valid map data must be present", data);
+}
 
 int	game_loop(t_game_data *data)
 {
